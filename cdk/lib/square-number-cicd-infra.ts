@@ -22,7 +22,7 @@ export class SquareNumberCicdInfraStack extends cdk.Stack {
             sourceAction: new codepipeline_actions.GitHubSourceAction({
                 actionName: 'DownloadSources',
                 owner: 'imyrvold',
-                repo: 'SquareNumber',
+                repo: 'SquareNumberCICD',
                 branch: 'main',
 				oauthToken: cdk.SecretValue.secretsManager('github-token'),
 				output: sourceArtifact
