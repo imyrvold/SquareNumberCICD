@@ -14,7 +14,8 @@ let package = Package(
         .target(
             name: "SquareNumber",
             dependencies: [
-                .product(name: "AWSLambdaRuntime", package: "swift-aws-lambda-runtime")
+                .product(name: "AWSLambdaRuntime", package: "swift-aws-lambda-runtime"),
+                .product(name: "AWSLambdaEvents", package: "swift-aws-lambda-runtime")
             ]),
         .testTarget(
             name: "SquareNumberTests",
