@@ -15,7 +15,8 @@ struct Handler: EventLoopLambdaHandler {
     typealias Out = Output
 
     func handle(context: Lambda.Context, event: Input) -> EventLoopFuture<Output> {
-        context.eventLoop.makeSucceededFuture(Out(result: event.number * event.number))
+        print("Handler handle event:", event)
+        return context.eventLoop.makeSucceededFuture(Out(result: event.number * event.number))
     }
 }
 Lambda.run(Handler())
