@@ -1,25 +1,46 @@
 import AWSLambdaRuntime
-import AWSLambdaRuntime
 import AWSLambdaEvents
 import NIO
+import Foundation
 
-//struct Input: Codable {
-//    let number: Double
-//}
-//
-//struct Output: Codable {
-//    let result: Double
-//}
+struct Input: Codable {
+    let number: Double
+}
+
+struct Output: Codable {
+    let result: Double
+}
 
 struct Handler: EventLoopLambdaHandler {
     typealias In = APIGateway.Request
     typealias Out = APIGateway.Response
 
     func handle(context: Lambda.Context, event: In) -> EventLoopFuture<Out> {
-        print("Handler handle event:", event)
-        return context.eventLoop.makeSucceededFuture(APIGateway.Response(statusCode: .ok, headers: [:], multiValueHeaders: nil, body: "Heisan!", isBase64Encoded: false))
-//        return context.eventLoop.makeSucceededFuture(Out(result: event.number * event.number))
+           return context.eventLoop.makeSucceededFuture(APIGateway.Response(
+            statusCode: .ok,
+            headers: [:],
+            multiValueHeaders: nil,
+            body: "Hello",
+            isBase64Encoded: false
+        ))
     }
 }
-Lambda.run(Handler())
+
+struct SquareNumberHandler: EventLoopLambdaHandler {
+    typealias In = APIGateway.Request
+    typealias Out = APIGateway.Response
+    
+
+    func handle(context: Lambda.Context, event: In) -> EventLoopFuture<APIGateway.Response> {
+        guard let input: Input = try? event.bodyObject() else {
+            return context.eventLoop.makeSucceededFuture(APIGateway.Response(with: APIError.requestError, statusCode: .badRequest))
+        }
+        let output = Output(result: input.number * input.number)
+        let apigatewayOutput = APIGateway.Response(with: output, statusCode: .ok)
+        print("Handler handle event:", event)
+        
+        return context.eventLoop.makeSucceededFuture(apigatewayOutput)
+    }
+}
+Lambda.run(SquareNumberHandler())
 
