@@ -24,8 +24,8 @@ export class SquareNumberCicdInfraStack extends cdk.Stack {
                 owner: 'imyrvold',
                 repo: 'SquareNumberCICD',
                 branch: 'main',
-				oauthToken: cdk.SecretValue.secretsManager('github-token'),
-				output: sourceArtifact
+				        oauthToken: cdk.SecretValue.secretsManager('github-token'),
+				        output: sourceArtifact
             }),
 
             synthAction: pipelines.SimpleSynthAction.standardNpmSynth({

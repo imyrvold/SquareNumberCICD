@@ -9,6 +9,7 @@ struct Output: Codable {
 }
 
 Lambda.run { (context, input: Input, callback: @escaping (Result<Output, Error>) -> Void) in
+print("Lambda input:", input)
     callback(.success(Output(result: input.number * input.number)))
 }
 
