@@ -17,7 +17,6 @@ struct SquareNumberHandler: EventLoopLambdaHandler {
     
 
     func handle(context: Lambda.Context, event: In) -> EventLoopFuture<APIGateway.V2.Response> {
-        print("Handler handle event:", event)
         guard let input: Input = try? event.bodyObject() else {
             return context.eventLoop.makeSucceededFuture(APIGateway.V2.Response(with: APIError.requestError, statusCode: .badRequest))
         }
