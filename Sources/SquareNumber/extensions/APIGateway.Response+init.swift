@@ -1,7 +1,7 @@
 import AWSLambdaEvents
 import Foundation
 
-extension APIGateway.Response {
+extension APIGateway.V2.Response {
     public static let defaultHeaders = [
         "Content-Type": "application/json",
         "Access-Control-Allow-Origin": "*",
@@ -12,7 +12,7 @@ extension APIGateway.Response {
     public init(with error: Error, statusCode: AWSLambdaEvents.HTTPResponseStatus) {
         self.init(
             statusCode: statusCode,
-            headers: APIGateway.Response.defaultHeaders,
+            headers: APIGateway.V2.Response.defaultHeaders,
             multiValueHeaders: nil,
             body: "{\"error\":\"\(String(describing: error))\"}",
             isBase64Encoded: false
@@ -27,7 +27,7 @@ extension APIGateway.Response {
         }
         self.init(
             statusCode: statusCode,
-            headers: APIGateway.Response.defaultHeaders,
+            headers: APIGateway.V2.Response.defaultHeaders,
             multiValueHeaders: nil,
             body: body,
             isBase64Encoded: false

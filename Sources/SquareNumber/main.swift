@@ -12,17 +12,17 @@ struct Output: Codable {
 }
 
 struct SquareNumberHandler: EventLoopLambdaHandler {
-    typealias In = APIGateway.Request
-    typealias Out = APIGateway.Response
+    typealias In = APIGateway.V2.Request
+    typealias Out = APIGateway.V2.Response
     
 
-    func handle(context: Lambda.Context, event: In) -> EventLoopFuture<APIGateway.Response> {
+    func handle(context: Lambda.Context, event: In) -> EventLoopFuture<APIGateway.V2.Response> {
         print("Handler handle event:", event)
         guard let input: Input = try? event.bodyObject() else {
-            return context.eventLoop.makeSucceededFuture(APIGateway.Response(with: APIError.requestError, statusCode: .badRequest))
+            return context.eventLoop.makeSucceededFuture(APIGateway.V2.Response(with: APIError.requestError, statusCode: .badRequest))
         }
         let output = Output(result: input.number * input.number)
-        let apigatewayOutput = APIGateway.Response(with: output, statusCode: .ok)
+        let apigatewayOutput = APIGateway.V2.Response(with: output, statusCode: .ok)
         
         return context.eventLoop.makeSucceededFuture(apigatewayOutput)
     }

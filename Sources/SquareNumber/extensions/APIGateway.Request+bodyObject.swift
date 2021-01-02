@@ -1,7 +1,7 @@
 import AWSLambdaEvents
 import Foundation
 
-extension APIGateway.Request {
+extension APIGateway.V2.Request {
     func bodyObject<D: Decodable>() throws -> D {
         guard let jsonData = body?.data(using: .utf8) else { throw APIError.requestError }
         let decoder = JSONDecoder()
